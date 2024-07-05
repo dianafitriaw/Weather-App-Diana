@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://kit.fontawesome.com/f9aaa19dec.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section>
+        <img src="https://i.pinimg.com/originals/af/95/5c/af955c29f585b3d0430a38d8078263b7.gif" 
+        alt="" 
+        style="display: none; position: relative;margin-left: 350px;"
+        class="loading"/>
+        <div class="tombol">
+        <form action="" class="search">
+            <input type="text" placeholder="Enter city name">
+            <button> <i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        </div>
+        <div class="cityTime">
+            <div class="city"></div>
+            <div class="time"></div>
+        </div>
+        <div class="current">
+            <div class="todayCuaca"></div>
+            <div class="todayCuaca today2">
+                <div class="wind"><img src="wind.png" alt="" height="30px;"></div>
+                <div class="humidity"><img src="humidity.png" alt="" height="30px"></div>
+            </div>
+            <div class="hourly todayCuaca"></div>
+        </div>
+        <div class="cuaca"></div>
+    </section>
+</body>
+<script src="index.js"></script>
+</html>
