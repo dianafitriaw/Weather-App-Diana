@@ -70,29 +70,41 @@ let weatherCode ={
 }
 
 let loadingElement = document.querySelector(".loading")
+
 let form = document.querySelector(".search")
+// eventlistener tombol submit cari//
 form.addEventListener('submit', async(event) => {
     event.preventDefault();
-    console.log(event.target[0].value);
+// menjalankan fuction kota dg mengirimkan value dari form search//
+    kota(event.target[0].value);
+})
+
+//function untuk mencari kota//
+async function kota(namaKota){
     try {
+        if (namaKota === ''){
+            namaKota = 'Jakarta'
+        }
         loadingElement.style.display = "block";
         const response = await fetch(
-            `https://geocoding-api.open-meteo.com/v1/search?name=${event.target[0].value}&count=10&language=en&format=json`
+            `https://geocoding-api.open-meteo.com/v1/search?name=${namaKota}&count=10&language=en&format=json`
         );
         const result = await response.json();
         current(result.results[1]);
         fetchCuaca(result.results[1]);
-    } catch (error){
+    }catch (error){
         console.log(error)
     }finally {
         loadingElement.style.display = "none";
     }
-})
+}
 
 async function current(dataCity){
     try{
+          // kita simpan default value u/ lat long
         let latitude = "-6.1818";
         let longitude ="106.8223";
+        console.log(dataCity);
 
         if (dataCity){
             latitude = dataCity.latitude;
@@ -101,7 +113,7 @@ async function current(dataCity){
 
         const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max&timezone=Asia%2FBangkok&forecast_days=3`);
         const result = await response.json();
-
+        //memanggil fuction hourly untuk mendapatkan data perjam dg mengirim hasil result//
         hourly(result)
 
         const cardTime = document.querySelector(".time");
@@ -212,9 +224,7 @@ async function hourly(result){
     }catch (error){
         console.log("error");
     }
-
 }
-
 async function fetchCuaca(city){
     try{
         const cuacaDelete = document.querySelector(".cuaca");
@@ -264,6 +274,7 @@ async function fetchCuaca(city){
         console.log("error");
     }
 }
+
 
 current();
 fetchCuaca();
